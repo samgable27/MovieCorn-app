@@ -30,6 +30,7 @@ export const Landing = () => {
         <input
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && movieSearch(searchTerm)}
           type="text"
           placeholder="Search here..."
           className="rounded-lg outline-none text-4xl placeholder:italic placeholder:text-[30px]"
