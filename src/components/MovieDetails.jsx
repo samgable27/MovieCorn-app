@@ -1,25 +1,30 @@
 import { data } from "autoprefixer";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { MovieCard } from "./MovieCard";
 
-export const MovieDetails = () => {
-  const { id } = useParams();
-  const [movie, setMovie] = useState("");
+export const MovieDetails = ({ selectedMovie }) => {
+  const [movieInfo, setMovieInfo] = useState();
+  useEffect(() => {
+    async function fetchMovieDetails(selectedMovie) {
+      await axios
+        .get(`http://www.omdbapi.com/?i=${selectedMovie}&apikey=fc1fef96`)
+        .then((response) => {
+          setMovieInfo(response.data);
+        });
+    }
+    fetchMovieDetails();
+  }, [selectedMovie]);
 
   return (
     <div>
-      {/* <h1>{movie.Title}</h1>
-      <span>{movie.Year}</span>
-      <span>{Rated}</span>
-      <span>{Released}</span>
-      <span>{Runtime}</span>
-      <span>{Genre}</span>
-      <span>{Director}</span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <img src={movie.Poster} alt="" /> */}
+      {/* <h1>this is the movie details</h1> */}
+      {movieInfo && (
+        <MovieCard
+          movieInfo={movieInfo}
+          fetchMovieDetails={fetchMovieDetails}
+        />
+      )}
     </div>
   );
 };

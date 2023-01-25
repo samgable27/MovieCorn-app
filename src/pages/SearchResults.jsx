@@ -1,13 +1,16 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { MovieCard } from "../components/MovieCard";
+import { MovieDetails } from "../components/MovieDetails";
 
 export const SearchResults = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [movie, setMovie] = useState([]);
-  const [movieId, setMovieId] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState();
   const [loading, setLoading] = useState();
   const navigate = useNavigate();
+  const { movieid } = useParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,14 +26,6 @@ export const SearchResults = () => {
     setMovie(data.Search);
     setLoading(false);
     // console.log(data);
-  }
-
-  async function fetchMovieDetails() {
-    const { data } = await axios.get(
-      `http://www.omdbapi.com/?i=${movie.dataset.imdbID}&apikey=fc1fef96`
-    );
-    setMovieId(data);
-    console.log(data);
   }
 
   return (
@@ -77,24 +72,12 @@ export const SearchResults = () => {
             ))
           : movie.map((movie, index) => {
               return (
-                <Link to={`/searchresults/${movie.imdbID}`}>
-                  <div className="p-8 cursor-pointer">
-                    <div className="flex flex-col items-center" key={index}>
-                      <img
-                        onClick={() => fetchMovieDetails()}
-                        className="h-60 w-60 rounded-lg hover:scale-110 transition-all duration-150 ease-out"
-                        src={movie.Poster}
-                        alt=""
-                      />
-                      <div className="flex flex-col items-center  text-ellipsis whitespace-nowrap overflow-hidden ">
-                        <h1 className="text-white pt-5 whitespace-nowrap">
-                          {movie.Title}
-                        </h1>
-                        <span className="text-orange-500">{movie.Year}</span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
+                <MovieCard
+                  setSelectedMovie={setSelectedMovie}
+                  selectedMovie={selectedMovie}
+                  key={index}
+                  movie={movie}
+                />
               );
             })}
       </div>

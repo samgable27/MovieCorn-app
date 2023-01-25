@@ -11,7 +11,10 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeScreen />}></Route>
           <Route path="/searchresults" element={<SearchResults />}></Route>
-          <Route path="/searchresults/:id" element={<MovieDetails />} />
+          <Route
+            path="/searchresults/moviedetails/:id"
+            element={<MovieDetails />}
+          />
         </Routes>
       </Router>
     </div>

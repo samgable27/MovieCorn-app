@@ -1,11 +1,37 @@
+import axios from "axios";
 import React from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export const MovieCard = ({ Poster, Title, Year }) => {
+export const MovieCard = ({
+  movie,
+  Title,
+  Year,
+  imdbID,
+  Type,
+  Poster,
+  index,
+  setSelectedMovie,
+  selectedMovie,
+}) => {
+  const navigate = useNavigate();
+
   return (
-    <div>
-      <img src={Poster} alt="" />
-      <h1 className="bg-red-700">{Title}this is a title</h1>
-      <span>{Year}</span>
+    <div onClick={() => setSelectedMovie(imdbID)}>
+      <div className="p-8 cursor-pointer">
+        <div className="flex flex-col items-center" key={index}>
+          <img
+            // onClick={() => navigate("/searchresults/moviedetails")}
+            className="h-[60] w-[60] rounded-lg hover:scale-110 transition-all duration-150 ease-out"
+            src={movie.Poster}
+            alt=""
+          />
+          <div className="flex flex-col items-center">
+            <h1 className="text-white pt-5 whitespace-nowrap">{movie.Title}</h1>
+            <span className="text-orange-500">{movie.Year}</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
