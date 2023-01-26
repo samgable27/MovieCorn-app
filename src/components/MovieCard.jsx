@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const MovieCard = ({
   movie,
@@ -17,11 +17,13 @@ export const MovieCard = ({
   const navigate = useNavigate();
 
   return (
-    <div onClick={() => setSelectedMovie(imdbID)}>
+    <div onClick={setSelectedMovie(movie.imdbID)}>
       <div className="p-8 cursor-pointer">
         <div className="flex flex-col items-center" key={index}>
           <img
-            // onClick={() => navigate("/searchresults/moviedetails")}
+            onClick={() =>
+              navigate(`/searchresults/moviedetails/${selectedMovie}`)
+            }
             className="h-[60] w-[60] rounded-lg hover:scale-110 transition-all duration-150 ease-out"
             src={movie.Poster}
             alt=""

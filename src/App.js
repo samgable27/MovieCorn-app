@@ -12,7 +12,7 @@ function App() {
           <Route path="/" element={<HomeScreen />}></Route>
           <Route path="/searchresults" element={<SearchResults />}></Route>
           <Route
-            path="/searchresults/moviedetails/:id"
+            path="/searchresults/moviedetails/:movieid"
             element={<MovieDetails />}
           />
         </Routes>
